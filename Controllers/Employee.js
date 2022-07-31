@@ -46,7 +46,7 @@ exports.loginEmployee = async (req,res) =>{
         }else{
             if(employee.password != password){
                 res.status(400).json({
-                    status:true,
+                    status:false,
                     message: 'Incorrect Password'
                 })
             }else{

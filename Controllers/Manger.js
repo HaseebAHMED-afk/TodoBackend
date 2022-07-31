@@ -3,14 +3,24 @@ const Manager = require("../Models/Manager");
 exports.createManager = async (req,res) =>{
     const {name , email , password} = req.body;
     try {
-        let newManager = new Manager({
-            name , email , password
+        let manager = await Manager.findOne({
+            email
         })
-        let managerRes = await newManager.save()
-        res.status(200).json({
-            status:true,
-            message: managerRes
-        })
+        if(!manager){
+            let newManager = new Manager({
+                name , email , password
+            })
+            let managerRes = await newManager.save()
+            res.status(200).json({
+                status:true,
+                message: managerRes
+            })
+        }else{
+            res.status(409).json({
+                status:false,
+                message: 'A manager with that email already exists'
+            })
+        }
     } catch (error) {
         res.status(500).json({
             status:false,
@@ -22,6 +32,7 @@ exports.createManager = async (req,res) =>{
 
 exports.loginManager = async (req,res) =>{
     const {email , password} = req.body;
+    console.log({email , password});
     try {
         let manager = await Manager.findOne({
            email 
