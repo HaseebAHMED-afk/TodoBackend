@@ -14,10 +14,6 @@ const taskSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    taskType:{
-        type:String,
-        required:true
-    },
     taskStatus:{
         type:String,
         required:true
