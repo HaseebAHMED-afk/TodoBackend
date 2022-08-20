@@ -1,11 +1,13 @@
-const { default: mongoose } = require("mongoose")
-require('dotenv').config()
+const { default: mongoose } = require("mongoose");
+require("dotenv").config();
 
-exports.connectDB = async () =>{
-    try {
-        await mongoose.connect(process.env.NODE_ENV == 'development' ? 'mongodb://localhost:27017/todoDB' : process.env.REMOTE_DB)
-        console.log('DB connected');
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+exports.connectDB = async () => {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://leadify:leadify3000@cluster0.43mq3.mongodb.net/leadifyDB?retryWrites=true&w=majority"
+    );
+    console.log("DB connected");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
