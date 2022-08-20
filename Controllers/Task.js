@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const Employee = require("../Models/Employee");
 const Task = require("../Models/Task");
 const { taskStatus } = require("../Utils/constant");
@@ -7,6 +8,9 @@ exports.createTask = async (req,res) =>{
     try {
         let newTask =  new Task({title , taskType , taskLevel , taskStatus: taskStatus.pending })
         let taskRes = await newTask.save()
+
+
+        const response = await axios.get('')
 
         try {
             let employee = await Employee.findOne({expertise: taskLevel , type: taskType , isAvailable:true})
