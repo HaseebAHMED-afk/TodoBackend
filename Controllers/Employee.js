@@ -1,7 +1,7 @@
 const Employee = require("../Models/Employee");
 
 exports.addEmployee = async (req,res) =>{
-    const {name ,email , password , expertise , type , gender , age , experience } = req.body;
+    const {name ,email , password  , type , gender , age , experience ,technicalExpertise,professionalExpertise,intelligenceExpertise } = req.body;
     try {
         
         let emp = await Employee.findOne({email})
@@ -11,8 +11,13 @@ exports.addEmployee = async (req,res) =>{
                 message: 'Employee already exists'
             })
         }else{
+
+            let agg = (technicalExpertise + professionalExpertise + intelligenceExpertise) / 3
+
+            let exp = agg > 70 ? 'Expert' : agg < 70 && agg > 40 ?  'Intermediate' : 'Beginner'
+
             let newEmployee = new Employee({
-                name ,email , password , expertise , type , gender , age , experience 
+                name ,email , password , expertise:exp , type , gender , age , experience  ,technicalExpertise,professionalExpertise,intelligenceExpertise
             })
     
             let empRes = await newEmployee.save()
@@ -40,7 +45,7 @@ exports.loginEmployee = async (req,res) =>{
         })
         if(!employee){
             res.status(404).json({
-                status:true,
+                status:false,
                 message: "Employee not found"
             })
         }else{
@@ -64,4 +69,19 @@ exports.loginEmployee = async (req,res) =>{
     }
 }
 
+exports.getAllEmployees = async (req,res) =>{
+    try {
+        let employees = await Employee.find({})
+      
+                res.status(200).json({
+                    status:true,
+                    message: employees
+                })
 
+    } catch (error) {
+        res.status(500).json({
+            status:false,
+            message: error.message
+        })
+    }
+}

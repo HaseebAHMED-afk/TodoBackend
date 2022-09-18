@@ -37,6 +37,18 @@ const employeeSchema = new mongoose.Schema({
     experience:{
         type:String,
         required:true
+    },
+    technicalExpertise:{
+        type:Number,
+        required:true
+    },
+    professionalExpertise:{
+        type:Number,
+        required:true
+    },
+    intelligenceExpertise:{
+        type:Number,
+        required:true
     }
 } , {
     timestamps:true

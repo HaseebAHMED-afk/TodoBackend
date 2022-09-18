@@ -32,7 +32,6 @@ exports.createManager = async (req,res) =>{
 
 exports.loginManager = async (req,res) =>{
     const {email , password} = req.body;
-    console.log({email , password});
     try {
         let manager = await Manager.findOne({
            email 
