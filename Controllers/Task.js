@@ -8,7 +8,7 @@ exports.createTask = async (req, res) => {
   console.log(req.body);
   try {
     const response = await axios.get(
-      `http://127.0.0.1:5000/?predictionTask=${title}`
+      `https://678a-2400-adc1-1d9-4a00-9898-dba3-15f0-c419.ap.ngrok.io/?predictionTask=${title}`
     );
     let newTask = new Task({
       title,
