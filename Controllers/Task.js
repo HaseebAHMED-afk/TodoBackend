@@ -8,7 +8,7 @@ exports.createTask = async (req, res) => {
   console.log(req.body);
   try {
     const response = await axios.get(
-      `https://678a-2400-adc1-1d9-4a00-9898-dba3-15f0-c419.ap.ngrok.io/?predictionTask=${title}`
+      `https://3d96-2400-adc1-1d9-4a00-c48a-3345-4244-791b.ap.ngrok.io/?predictionTask=${title}`
     );
     let newTask = new Task({
       title,
@@ -22,7 +22,7 @@ exports.createTask = async (req, res) => {
     console.log(taskRes, "Task res");
     try {
       let employee = await Employee.findOne({
-        expertise: taskRes.taskLevel,
+        // expertise: taskRes.taskLevel,
         type: taskRes.taskType,
         isAvailable: true,
       });
@@ -74,6 +74,7 @@ exports.createTask = async (req, res) => {
 
 exports.finishTask = async (req, res) => {
   const { taskId } = req.body;
+  console.log(taskId);
   try {
     let updatedTask = await Task.findOneAndUpdate(
       { _id: taskId },
@@ -85,6 +86,7 @@ exports.finishTask = async (req, res) => {
         assignedTo: updatedTask.assignedTo,
         taskStatus: taskStatus.completed,
       });
+      console.log(remain);
       if (remain.length <= 4) {
         await Employee.findOneAndUpdate(
           { _id: updatedTask.assignedTo },
